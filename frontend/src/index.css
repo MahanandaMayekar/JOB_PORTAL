@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a.active {
+    color: rgb(141, 29, 172);
+    border-bottom: 2px solid rgb(141, 29, 172);
+    font-weight: bold; }
