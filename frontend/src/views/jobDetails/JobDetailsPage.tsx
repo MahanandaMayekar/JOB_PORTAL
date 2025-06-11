@@ -32,10 +32,11 @@ const JobDetailsPage = () => {
     saveJob(job, updateUser);
   };
  
-  const postedDaysAgo = Math.floor(
-    (new Date().getTime() - new Date(job?.created_at!).getTime()) /
+const postedDaysAgo = Math.floor(
+    (new Date().getTime() - new Date(job?.createdAt!).getTime()) /
       (1000 * 3600 * 24)
   );
+
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error loading job details</p>;
@@ -150,7 +151,7 @@ const JobDetailsPage = () => {
 
           {/* Posted Date Info */}
           <p className="text-sm text-gray-600">
-            📅 Posted {postedDaysAgo} day{postedDaysAgo !== 1 ? "s" : ""} ago
+            📅 Posted {postedDaysAgo===0?"Today":postedDaysAgo} {postedDaysAgo !== 1 && 0 ? "s" : ""} 
           </p>
         </div>
 
@@ -211,7 +212,7 @@ const JobDetailsPage = () => {
             <BsCalendarDate size={30} className="text-blue-600 mt-1" />
             <div>
               <p className="font-medium text-base">Date Posted:</p>
-              <p className="text-gray-700 text-sm">{job?.created_at}</p>
+              <p className="text-gray-700 text-sm">{job?.createdAt}</p>
             </div>
           </div>
 
