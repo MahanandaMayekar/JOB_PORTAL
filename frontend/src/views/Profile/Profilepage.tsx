@@ -4,22 +4,23 @@ import { Avatar, Button } from "@mui/material";
 import { BsTelephone } from "react-icons/bs";
 import { FaHouseUser } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
-import { MdLaptopMac, MdPersonSearch } from "react-icons/md";
-import { RiMoneyRupeeCircleLine } from "react-icons/ri";
+import {
+  MdLaptopMac
+  
+ } from "react-icons/md";
 import JobCard from "../../components/JobCard";
 import Title from "../../components/Title";
 import { useFetchJobsQuery } from "../../store/jobs/jobService";
 import { useGetUserByIdQuery } from "../../store/register/registerService";
 import { useNavigate } from "react-router-dom";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import FlagIcon from "@mui/icons-material/Flag";
+
 import { GoGift } from "react-icons/go";
 import { FaRegFlag } from "react-icons/fa6";
 
 const ProfilePage = () => {
   const navigate=useNavigate()
   const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
-  const { data: user } = useGetUserByIdQuery(storedUser?.id);
+  const { data: user } = useGetUserByIdQuery(storedUser?._id);
 
   const interestedCategories = user?.interestedCategories;
 
@@ -199,7 +200,7 @@ const ProfilePage = () => {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
           {recomendedCategories?.slice(0, 8).map((categoryJob: any) => (
-            <JobCard job={categoryJob} key={categoryJob.id} />
+            <JobCard job={categoryJob} key={categoryJob._id} />
           ))}
         </div>
       </div>

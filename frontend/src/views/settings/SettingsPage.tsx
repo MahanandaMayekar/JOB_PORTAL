@@ -37,16 +37,18 @@ const SettingsPage = () => {
       description: "",
     },
   ]);
-const navigate=useNavigate()
+  const navigate = useNavigate()
+  
+
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const [updateUser, { isLoading }] = useUpdateUserMutation();
-  const {data}=useGetUserByIdQuery(user?.id)
+  const {data}=useGetUserByIdQuery(user?._id)
 
   const submitUserDetails = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const result = await updateUser({
-        id: user.id, // or `user.id` depending on your backend
+        id: user._id, // or `user.id` depending on your backend
         updateData: userDetails,
       }).unwrap();
 
@@ -70,10 +72,10 @@ const navigate=useNavigate()
   const handleUpdateSkills = async (e: React.FormEvent) => {
     e.preventDefault()
     console.log("skilss");
-    
+    if(!skills) return
     try {
       const result = await updateUser({
-        id: user.id, // or `user.id` depending on your backend
+        id: user._id, // or `user.id` depending on your backend
         updateData: {skills},
       }).unwrap();
       console.log("User updated:", result);
@@ -90,6 +92,7 @@ const navigate=useNavigate()
 
   const handleUpdateExperience = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     try {
       const result = await updateUser({
         id: user.id,

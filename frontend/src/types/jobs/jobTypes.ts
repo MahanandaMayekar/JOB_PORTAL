@@ -1,5 +1,5 @@
 export type JobType = {
-    id: string;
+    _id: string;
     title: string;
     description: string;
     company: string;
@@ -17,10 +17,10 @@ export type JobType = {
     updated_at: string;
     category: string;
 };
-  
+
 
 export type JobCardProps = {
-    job:JobType
+    job: JobType
 }
 
 

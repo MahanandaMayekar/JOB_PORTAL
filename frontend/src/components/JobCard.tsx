@@ -9,6 +9,8 @@ import { saveJob } from "../utils/SaveJobs";
 const JobCard = ({ job }: JobCardProps) => {
   // Parse the qualifications string into an array
   const navigate = useNavigate();
+ 
+  
 
   const [updateUser, { isSuccess }] = useUpdateUserMutation();
 
@@ -44,7 +46,7 @@ const JobCard = ({ job }: JobCardProps) => {
       {/* Job Details */}
       <div
         className="text-sm text-gray-700 space-y-2"
-        onClick={() => navigate(`/job/${job.id}`)}
+        onClick={() => navigate(`/job/${job?._id}`)}
       >
         <p>
           <strong>Salary:</strong> ₹{job.salary_from.toLocaleString()} - ₹
@@ -77,7 +79,7 @@ const JobCard = ({ job }: JobCardProps) => {
           size="small"
           endIcon={<ArrowForwardIcon />}
           className="!text-xs !rounded-xl !p-2"
-          onClick={() => navigate(`/job/${job?.id}/applyJob`)}
+          onClick={() => navigate(`/job/${job?._id}/applyJob`)}
         >
           Apply Now
         </Button>

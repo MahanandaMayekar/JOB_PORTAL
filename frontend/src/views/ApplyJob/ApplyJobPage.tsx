@@ -20,7 +20,7 @@ const ApplyJobPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const StoredUser = JSON.parse(localStorage.getItem("user") || "{}");
-  const userId = StoredUser?.id;
+  const userId = StoredUser?._id;
   const [formdata, setFormData] = useState<Partial<ApplyJobType>>({
     email: "",
     address: "",
@@ -72,7 +72,8 @@ const ApplyJobPage = () => {
         updateData: {
           appliedPosts: UpdatedAppliedPost,
         },
-      }).unwrap();
+       }).unwrap();
+      toast.success("succesfully applied")
      
       
       navigate("/dashboard");

@@ -1,6 +1,7 @@
 import { useGetUserByIdQuery } from "../../store/register/registerService";
 import JobCard from "../../components/JobCard";
 import Title from "../../components/Title";
+import type { JobType } from "../../types/jobs/jobTypes";
 
 const UsersAppliedJobs = () => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
@@ -8,9 +9,11 @@ const UsersAppliedJobs = () => {
       data: user,
       isLoading,
       isError,
-    } = useGetUserByIdQuery(storedUser?.id);
+    } = useGetUserByIdQuery(storedUser?._id);
 
-    const appliedJobs = user?.appliedPosts; // Assuming this array contains applied jobs
+  const appliedJobs:JobType[] = user?.appliedPosts||[];
+  console.log("aplied jobs",appliedJobs);
+  // Assuming this array contains applied jobs
 
     if (isLoading) return <p>Loading applied jobs...</p>;
     if (isError) return <p>Failed to load applied jobs.</p>;
@@ -29,7 +32,7 @@ const UsersAppliedJobs = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-8">
             {appliedJobs?.map((job) => (
-              <JobCard key={job.id} job={job} />
+              <JobCard key={job?.created_at} job={job} />
             ))}
           </div>
         )}

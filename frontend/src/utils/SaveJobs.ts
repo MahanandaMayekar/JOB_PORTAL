@@ -10,7 +10,7 @@ export const saveJob = async (
 
     const savedPosts: JobType[] = storedUser.savedPosts || [];
 
-    const isAlreadySaved = savedPosts.some((post) => post.id === job.id);
+    const isAlreadySaved = savedPosts.some((post) => post._id === job._id);
     if (isAlreadySaved) {
         toast.info("Job is already saved");
         return;
@@ -20,7 +20,7 @@ export const saveJob = async (
 
     try {
         const updatedUser = await updateUser({
-            id: storedUser?.id,
+            id: storedUser?._id,
             updateData: {
                 savedPosts: updatedPosts,
             },

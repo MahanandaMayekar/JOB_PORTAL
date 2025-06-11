@@ -4,7 +4,7 @@ import type { ApplyJobType } from "../../types/jobs/jobTypes";
 export const jobApi = createApi({
   reducerPath: "JobApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/",
+    baseUrl: "http://localhost:3000/",
   }),
   endpoints: (builder) => ({
     // Fetch all jobs

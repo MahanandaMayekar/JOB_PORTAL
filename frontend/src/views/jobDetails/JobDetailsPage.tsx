@@ -64,7 +64,7 @@ const JobDetailsPage = () => {
         <div className="flex flex-row gap-6 my-auto">
           <Button
             variant="contained"
-            onClick={() => navigate(`/job/${job?.id}/applyJob`)}
+            onClick={() => navigate(`/job/${job?._id}/applyJob`)}
           >
             Apply for job
           </Button>
@@ -234,7 +234,7 @@ const JobDetailsPage = () => {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
           {CategoryJobs?.slice(0, 8).map((categoryJob) => (
-            <JobCard job={categoryJob} key={categoryJob.id} />
+            <JobCard job={categoryJob} key={categoryJob._id} />
           ))}
         </div>
       </div>

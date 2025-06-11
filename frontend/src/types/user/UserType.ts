@@ -8,7 +8,7 @@ type Experience = {
   description:string
 }
 export type UserType = {
-    id?:string,
+    _id?:string,
   fullName: string;
   email: string;
   password: string;
