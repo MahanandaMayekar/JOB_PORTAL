@@ -77,12 +77,12 @@ const Category = () => {
             🎯 Recommended for You
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {recomendedCategories?.slice(0, 4).map((job) => (
-              <div className="relative group">
+            {recomendedCategories?.slice(0, 4).map((job,index) => (
+              <div className="relative group"  key={index}>
                 <div className="absolute -top-3 -left-3 bg-purple-600 text-white text-[10px] font-semibold px-2 py-1 rounded-tr-md rounded-bl-md shadow-md z-10">
                   RECOMMENDED
                 </div>
-                <JobCard key={job.id} job={job} />
+                <JobCard key={job._id} job={job} />
               </div>
             ))}
           </div>
@@ -95,7 +95,7 @@ const Category = () => {
 
       <div className="mt-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-         {jobs?.map((job) => <JobCard key={job.id} job={job} />)}
+         {jobs?.map((job) => <JobCard key={job._id} job={job} />)}
         </div>
       </div>
     </div>

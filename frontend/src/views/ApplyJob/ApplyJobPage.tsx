@@ -26,7 +26,9 @@ const ApplyJobPage = () => {
     address: "",
     contact: "",
   });
-  const [coverLetterFile, setCoverLetterFile] = useState<string>("");
+  const [coverLetterFile, setCoverLetterFile] = useState<File | undefined>(
+    undefined
+  );
   const { data: user } = useGetUserByIdQuery(userId);
   const [applyJob] = useApplyJobMutation();
   const{data:job}=useFetchJobByIdQuery(id!)
@@ -38,6 +40,8 @@ const ApplyJobPage = () => {
     formDataInput.append("email", formdata?.email || "");
     formDataInput.append("address", formdata?.address || "");
     formDataInput.append("contact", formdata?.contact || "");
+    formDataInput.append("jobId", job?._id || "");
+    formDataInput.append("userId", user?._id || "");
     if (coverLetterFile) {
       formDataInput.append("coverLetter", coverLetterFile);
     }
@@ -50,14 +54,12 @@ const ApplyJobPage = () => {
     }
 
     try {
-      await applyJob({
-        email: formdata.email!,
-        address: formdata.address!,
-        contact: formdata.contact!,
-        userId,
-        jobId: id,
-        coverLetterFile: coverLetterFile, // just the file name or URL string
-      });
+      const result = await applyJob(formDataInput as any).unwrap();
+      if (!result || result.error || result.status === "fail") {
+        toast.error("Failed to apply for the job");
+        return;
+      }
+      console.log("result formdata",result)
       
       if (!job) {
         toast.error("Job not found");
@@ -67,12 +69,13 @@ const ApplyJobPage = () => {
       const appliedPosts: JobType[] = user?.appliedPosts || [];
       const UpdatedAppliedPost: JobType[] = [...appliedPosts, job];
 
-       await updateUser({
+       const updatedUser=await updateUser({
         id: userId,
         updateData: {
           appliedPosts: UpdatedAppliedPost,
         },
        }).unwrap();
+       localStorage.setItem("user", JSON.stringify(updatedUser));
       toast.success("succesfully applied")
      
       
@@ -126,14 +129,14 @@ const ApplyJobPage = () => {
             }
           />
           <Button variant="outlined" component="label">
-            Upload Cover Letter
+            {coverLetterFile ? "✔ File Attached" : " Upload Cover Letter"}
             <input
               className="hidden"
               type="file"
               accept=".pdf,.doc,.docx"
               onChange={(e) => {
                 const file = e.target.files?.[0];
-                if (file) setCoverLetterFile(file.name);
+                if (file) setCoverLetterFile(file);
               }}
             />
           </Button>

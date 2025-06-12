@@ -32,5 +32,5 @@ export type ApplyJobType = {
     email: string;
     address: string;
     contact: string;
-    coverLetterFile?: string;
+    coverLetterFile?: File;
 }

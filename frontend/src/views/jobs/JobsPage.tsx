@@ -36,7 +36,7 @@ const JobsPage = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-14 !ml-12">
         {filteredJobs?.length ? (
-          filteredJobs.map((job) => <JobCard key={job.id} job={job} />)
+          filteredJobs.map((job) => <JobCard key={job._id} job={job} />)
         ) : (
           <p className="col-span-full text-center text-gray-500">
             No jobs found matching your search.

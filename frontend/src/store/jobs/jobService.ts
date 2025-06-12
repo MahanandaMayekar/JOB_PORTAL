@@ -20,11 +20,11 @@ export const jobApi = createApi({
       query: (id) => `jobs/${id}`,
     }),
 
-    applyJob: builder.mutation<any, ApplyJobType>({
-      query: (applicationData) => ({
-        url: "appliedJobs",
+    applyJob: builder.mutation<any, FormData>({
+      query: (formData) => ({
+        url: "/applied-jobs",
         method: "POST",
-        body: applicationData,
+        body: formData,
       }),
     }),
   }),

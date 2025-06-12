@@ -10,7 +10,7 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const query = useSelector((state: RootState) => state.search.query);
-  console.log("h", query);
+ 
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query.trim()) {
