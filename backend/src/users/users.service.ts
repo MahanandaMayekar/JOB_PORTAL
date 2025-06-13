@@ -57,4 +57,12 @@ export class UsersService {
         }
         return result
     }
+
+    async deleteUser(UserId: string) {
+        if (!UserId) {
+            throw new NotFoundException("User with Id not found")
+        }
+        const user = await this.userModel.findByIdAndUpdate(UserId)
+        return user
+    }
 }

@@ -5,15 +5,21 @@ import {
   Stack,
   TextField,
   Typography,
+  
 } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
 import { useState } from "react";
 import { useUpdateUserMutation } from "../../store/register/registerService";
 import { toast } from "react-toastify";
 import { useGetUserByIdQuery } from "../../store/register/registerService";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDeleteUserMutation } from "../../store/register/registerService";
 
 const SettingsPage = () => {
+  const [open,setOpen]=useState<boolean>(false)
   const [userDetails, setUserDetails] = useState({
     DOB: "",
     address: "",
@@ -42,7 +48,8 @@ const SettingsPage = () => {
 
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const [updateUser, { isLoading }] = useUpdateUserMutation();
-  const {data}=useGetUserByIdQuery(user?._id)
+  const { data } = useGetUserByIdQuery(user?._id)
+  const [deleteUser] = useDeleteUserMutation();
 
   const submitUserDetails = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,7 +102,7 @@ const SettingsPage = () => {
     
     try {
       const result = await updateUser({
-        id: user.id,
+        id: user._id,
         updateData: { experience },
       }).unwrap();
 
@@ -118,7 +125,20 @@ const SettingsPage = () => {
       toast.error("Failed to update user");
     }
   };
-  
+   
+  const handleDelete = async() => {
+    try {
+      const id=user?._id
+      if (!id) return
+      await deleteUser(id)
+      toast.success("Your Account is Successfully deleted")
+      navigate("/register")
+      
+    } catch (error:any) {
+      toast.error(error?.data?.message || "cannt delete account ,try again");
+      
+    }
+  }
 
   return (
     <>
@@ -132,13 +152,14 @@ const SettingsPage = () => {
               {data?.fullName}
             </h1>
             <h1 className="font-serif text-md text-gray-800">
-              {data?.occupation?data.occupation:data?.role}
+              {data?.occupation ? data.occupation : data?.role}
             </h1>
           </div>
         </div>
         <div className="flex flex-row gap-6 my-auto">
-          <Button variant="contained" onClick={()=>navigate("/profile")}>profile</Button>
-         
+          <Button variant="contained" onClick={() => navigate("/profile")}>
+            profile
+          </Button>
         </div>
       </div>
       <Stack direction="row" spacing={4} sx={{ mt: 5 }}>
@@ -426,6 +447,46 @@ const SettingsPage = () => {
             </Stack>
           </form>
         </Box>
+      </Stack>
+      <Stack>
+        <div className="border p-6 m-4">
+          <h4>
+            <strong>Delete Account:</strong>{" "}
+          </h4>
+          <h6>
+            Are you sure you want to delete your account? This action cannot be
+            undone.
+          </h6>
+          <Button
+            variant="contained"
+            onClick={() => setOpen(true)}
+            color="warning"
+            className="!mt-4"
+          >
+            Delete
+          </Button>
+
+          <Dialog
+            open={open}
+            onClose={()=>setOpen(false)}
+            keepMounted
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogContent>
+              <p id="alert-dialog-slide-description">
+                Are you sure you want to permanently delete your account? This
+                action is irreversible
+              </p>
+            </DialogContent>
+
+            <DialogActions>
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button onClick={handleDelete} color="error" variant="contained">
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </Stack>
     </>
   );

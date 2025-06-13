@@ -151,7 +151,7 @@ const postedDaysAgo = Math.floor(
 
           {/* Posted Date Info */}
           <p className="text-sm text-gray-600">
-            📅 Posted {postedDaysAgo===0?"Today":postedDaysAgo} {postedDaysAgo !== 1 && 0 ? "s" : ""} 
+            📅 Posted {postedDaysAgo===0?"Today":postedDaysAgo}days ago
           </p>
         </div>
 

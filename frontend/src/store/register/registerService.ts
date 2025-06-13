@@ -29,8 +29,14 @@ export const registerApi = createApi({
     getUserById: builder.query<UserType, string>({
       query: (id) => `users/${id}`,
       providesTags: ["User"],
+    }),
+    deleteUser: builder.mutation<UserType,string>({
+      query: (id:string) => ({
+        url: `delete/${id}`,
+        method: "DELETE",
+      })
     })
   }),
 });
 
-export const { useCreateUserMutation, useGetUserByEmailQuery, useUpdateUserMutation, useLazyGetUserByEmailQuery,useGetUserByIdQuery,useLazyGetUserByIdQuery } = registerApi;
+export const { useCreateUserMutation, useGetUserByEmailQuery, useUpdateUserMutation, useLazyGetUserByEmailQuery,useGetUserByIdQuery,useLazyGetUserByIdQuery,useDeleteUserMutation } = registerApi;
