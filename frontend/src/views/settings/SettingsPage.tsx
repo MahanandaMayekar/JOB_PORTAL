@@ -131,6 +131,7 @@ const SettingsPage = () => {
       const id=user?._id
       if (!id) return
       await deleteUser(id)
+      localStorage.clear()
       toast.success("Your Account is Successfully deleted")
       navigate("/register")
       
