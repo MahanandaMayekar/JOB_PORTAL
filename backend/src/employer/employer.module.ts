@@ -11,6 +11,7 @@ import { Job, JobsSchema } from 'src/jobs/schrma/jobs.schema';
     { name: Job.name, schema: JobsSchema }
   ])],
   providers: [EmployerService],
-  controllers: [EmployerController]
+  controllers: [EmployerController],
+  exports:[EmployerService]
 })
 export class EmployerModule { }

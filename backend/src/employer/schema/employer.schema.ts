@@ -8,11 +8,12 @@ export type EmployerDocument=Document&Employer
 
 @Schema({timestamps:true})
 export class Employer{
-    @Prop({required:true})
-    email: string
 
     @Prop({ required: true })
-    companyName: string
+        fullName:string
+
+    @Prop({required:true,unique:true})
+    email: string
     
     @Prop({ required: true })
     password:string
