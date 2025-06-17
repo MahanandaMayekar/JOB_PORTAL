@@ -9,6 +9,10 @@ export class AppliedJobsDto{
     @IsString({ message: "UserId must be a string" })
     @IsNotEmpty({ message: "userId should not be empty" })
     userId: string;
+    
+    @IsString({ message: 'EmployerId must be a string' })
+    @IsNotEmpty({ message: 'EmployerId should not be empty' })
+    employerId: string;
 
     @IsString({ message: "Email must be a string" })
     @IsNotEmpty({ message: "Email should not be empty" })

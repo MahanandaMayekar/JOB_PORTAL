@@ -46,6 +46,10 @@ export class CreateJobDto {
     @IsIn(['Full-time', 'Part-time', 'Contract', 'Temporary', 'Internship'], { message: "Invalid employment type" })
     employment_type: string;
 
+    @IsString({ message: "Employer ID must be a string" })
+    @IsNotEmpty({ message: "Employer ID is required" })
+    employerId: string;
+
 
     @IsDateString({}, { message: "Application deadline must be a valid date string (e.g., YYYY-MM-DD)" })
     @IsNotEmpty({ message: "Application deadline is required" })
