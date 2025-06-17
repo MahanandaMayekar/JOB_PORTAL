@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsEmail, IsEnum, IsArray, IsBoolean, IsOptional, IsDefined } from "class-validator";
+import { IsString, IsNotEmpty, IsEmail, IsEnum,IsDefined } from "class-validator";
 import { userRole } from "src/users/enums/user-role.enum";
 
 export class RegisterUserDto {
@@ -23,11 +23,4 @@ export class RegisterUserDto {
     @IsEnum(userRole)
     role: userRole;
 
-    @IsBoolean()
-    @IsOptional()
-    isFirstLogin?: boolean;
-
-    @IsArray()
-    @IsOptional()
-    interestedCategories?: string[]
 }

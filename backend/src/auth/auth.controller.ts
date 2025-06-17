@@ -19,11 +19,26 @@ export class AuthController {
         return await this.authService.register(registerData)
         
     }
+    @Post("/register/employer")
+    async registerEmployer(@Body(new ValidationPipe()) registerData: RegisterUserDto) {
+
+        if (registerData.password !== registerData.confirmPassword) {
+            throw new BadRequestException('Passwords do not match');
+        }
+
+        return await this.authService.registerEmployer(registerData)
+
+    }
 
     @Post("/login")
     async login(@Body(ValidationPipe) loginData: LoginUserDto) {
         return await this.authService.login(loginData)
         
+    }
+    @Post("/login/employer")
+    async loginEmployer(@Body(ValidationPipe) loginData: LoginUserDto) {
+        return await this.authService.loginEmployer(loginData)
+
     }
 
 }
