@@ -1,19 +1,22 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-
+import { Types } from "mongoose";
 export type AppliedJobDocument = AppliedJobs & Document
 
 
 @Schema()
 export class AppliedJobs{
-    @Prop({required:true})
-    jobId: string;
+    @Prop({ type: Types.ObjectId, ref: 'Job', required: true })
+    jobId: Types.ObjectId
 
-    @Prop({ required: true })
-    userId: string;
+    @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+    userId: Types.ObjectId
 
     @Prop({ required: true })
     email: string;
+
+    @Prop({ type: Types.ObjectId, ref: 'Employer', required: true })
+    employerId: Types.ObjectId;
 
     @Prop({ required: true })
     address: string;
