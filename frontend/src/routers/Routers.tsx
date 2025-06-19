@@ -1,4 +1,4 @@
-import {Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Layout from "../views/layout/Layout";
 import About from "../views/aboutPage/About";
 import Contact from "../views/ContactPage/Contact";
@@ -10,10 +10,12 @@ import JobDetailsPage from "../views/jobDetails/JobDetailsPage";
 import SavedJobPage from "../views/savedJob/SavedJobPage";
 import FirstLogin from "../views/FirstLoginPage/FirstLogin";
 import ApplyJobPage from "../views/ApplyJob/ApplyJobPage";
-import ProfilePage from "../views/Profile/Profilepage"; 
+import ProfilePage from "../views/Profile/Profilepage";
 import SettingsPage from "../views/settings/SettingsPage";
 import UsersAppliedJobs from "../views/usersAppliedJobs/UsersAppliedJobs";
-import EmployerPanel from "../views/employerPanel/EmployerPanel";
+import EmployerPanel from "../views/employerPanel/EmployerPanelLayout";
+import PostJob from "../views/PostJob/PostJob";
+import EmployerDashboard from "../views/EmployerDashboard/EmployerDashboard";
 const Routers = () => {
   return (
     <div>
@@ -32,7 +34,12 @@ const Routers = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/users/applied-jobs" element={<UsersAppliedJobs />} />
-          <Route path="/panel" element={<EmployerPanel />} />
+
+          <Route path="/employer" element={<EmployerPanel />}>
+            <Route index element={<EmployerDashboard />} />
+            <Route path="dashboard" element={<EmployerDashboard />} />
+            <Route path="post-job" element={<PostJob />} />
+          </Route>
         </Route>
       </Routes>
     </div>

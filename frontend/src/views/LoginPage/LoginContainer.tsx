@@ -59,7 +59,7 @@ const LoginContainer = () => {
         console.log("form submitted", user);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", response.token);
-        navigate("/panel");
+        navigate("/employer");
       }
       console.log("login response", response);
      
