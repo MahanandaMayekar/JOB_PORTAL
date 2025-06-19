@@ -32,8 +32,8 @@ const Routers = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/users/applied-jobs" element={<UsersAppliedJobs />} />
+          <Route path="/panel" element={<EmployerPanel />} />
         </Route>
-        <Route path="/panel" element={<EmployerPanel />} />
       </Routes>
     </div>
   );
