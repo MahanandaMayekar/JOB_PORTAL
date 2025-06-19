@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Register from "./Register";
 import type { RegisterType } from "../../types/register/registerType";
 import { toast } from "react-toastify";
@@ -7,14 +7,14 @@ import { RegisterSchema } from "../../validation/RegisterSchema";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRegisterUserMutation } from "../../store/login/LoginService";
+import { useRegisterEmployerMutation } from "../../store/login/LoginService";
 const RegisterContainer = () => {
   const navigate = useNavigate();
-  const [role, setRole] = useState<string>("");
+  const [role, setRole] = useState<"employer" | "candidate" | undefined>();
 
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<RegisterType>({
     resolver: yupResolver(RegisterSchema) as any,
@@ -23,35 +23,36 @@ const RegisterContainer = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      role: "",
-     
     },
   });
-  useEffect(() => {
-    setValue("role", role);
-  }, [role, setValue]);
 
   const [registerUser] = useRegisterUserMutation();
-
+  const [RegisterEmployer] = useRegisterEmployerMutation();
+ 
   const handleFormSubmit = async (data: RegisterType) => {
     try {
-      if (!data.role) {
+      if (!role) {
         toast.error("Please select whether you are candidate or employer");
-        return; // stop form submit here
+        return;
       }
-      const response = await registerUser(data).unwrap();
-      console.log("response", response);
+   
+      let response;
+      if (role === "candidate") {
+        response = await registerUser({ ...data, role }).unwrap();
+      } else if (role === "employer") {
+        response = await RegisterEmployer({ ...data, role }).unwrap();
+      }
+      console.log(response);
 
-      toast.success("User registered successfully!");
+      toast.success("You have been registered successfully!");
       navigate("/login");
     } catch (error: any) {
       const errorMessage =
-        error?.data?.message || "Something went wrong! Unable to login";
-      console.log("Login error:", errorMessage);
+        error?.data?.message || "Something went wrong! Unable to register";
+      console.log("Registration error:", errorMessage);
       toast.error(errorMessage);
     }
   };
-
   return (
     <Register
       setRole={setRole}

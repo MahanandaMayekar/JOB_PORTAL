@@ -16,9 +16,5 @@ export const RegisterSchema = yup.object({
         .string()
         .required("Please confirm your password")
         .oneOf([yup.ref("password")], "Passwords must match"),
-    role: yup
-       .string()
-        .required("Please select a role"),
-    isFirstLogin: yup.boolean().default(true),
-    interestedCategories:yup.array().of(yup.string()).notRequired()
+    
 });

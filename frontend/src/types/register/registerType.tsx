@@ -11,9 +11,11 @@ export type RegisterType = {
 };
 
 export type RegisterProps = {
-  role: string;
-  setRole: React.Dispatch<React.SetStateAction<string>>;
-  handleFormSubmit:  () => void;
+  role: "employer" | "candidate" | undefined;
+  setRole: React.Dispatch<
+    React.SetStateAction<"employer" | "candidate" | undefined>
+  >;
+  handleFormSubmit: () => void;
   register: UseFormRegister<RegisterType>;
   errors: FieldErrors<RegisterType>;
 };
