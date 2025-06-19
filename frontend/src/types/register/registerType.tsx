@@ -7,8 +7,7 @@ export type RegisterType = {
   password: string;
   confirmPassword: string;
   role: string;
-  isFirstLogin: boolean;
-  interestedCategories:string[]
+  
 };
 
 export type RegisterProps = {
@@ -26,6 +25,5 @@ export const registerInitialState: RegisterType = {
   password: "",
   confirmPassword: "",
   role: "",
-  isFirstLogin: true,
-  interestedCategories: [],
+ 
 };

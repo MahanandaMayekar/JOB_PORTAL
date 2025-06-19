@@ -24,8 +24,7 @@ const RegisterContainer = () => {
       password: "",
       confirmPassword: "",
       role: "",
-      isFirstLogin: true,
-      interestedCategories: [],
+     
     },
   });
   useEffect(() => {
