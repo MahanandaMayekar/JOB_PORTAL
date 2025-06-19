@@ -3,6 +3,7 @@ import type { LoginResponseType } from '../../types/login/LoginTypes';
 import type { LoginType } from '../../types/login/LoginTypes';
 import type { UserType } from '../../types/user/UserType';
 import type { RegisterType } from '../../types/register/registerType';
+import type { EmployerType } from '../../types/employerType/EmployerType';
 export const LoginApi = createApi({
     reducerPath: "LoginApi",
     baseQuery: fetchBaseQuery({
@@ -29,8 +30,15 @@ export const LoginApi = createApi({
                 
             })
             
+        }),
+        RegisterEmployer: builder.mutation<EmployerType, RegisterType>({
+            query: (registerData) => ({
+                url: "register/employer",
+                method: "POST",
+                body: registerData,
+            })
         })
           
       })
     })
-    export const { useLoginMutation ,useRegisterUserMutation} = LoginApi
+    export const { useLoginMutation ,useRegisterUserMutation,useRegisterEmployerMutation} = LoginApi
