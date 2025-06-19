@@ -4,7 +4,8 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import type { LoginProps } from "../../types/login/LoginTypes";
-const Login = ({ handleFormSubmit, register, errors }: LoginProps) => {
+import GroupButton from "../../components/GroupButton";
+const Login = ({ handleFormSubmit, register, errors,isloading ,role,setRole}: LoginProps) => {
 
 
   return (
@@ -33,6 +34,24 @@ const Login = ({ handleFormSubmit, register, errors }: LoginProps) => {
         >
           <h2 className="text-black font-serif underline">Welcome back</h2>
         </Stack>
+        <div className="flex flex-col items-center justify-center gap-1 mb-6">
+          <GroupButton
+            button1="Candidate"
+            button2="Employer"
+            handleOnClickBtn1={() => setRole("candidate")}
+            handleOnClickBtn2={() => setRole("employer")}
+            variant="contained"
+            color="secondary"
+            role={role}
+          />
+
+          <p className="text-sm text-center text-gray-400">
+            Login as a {" "}
+            <span className="font-bold text-gray-700">
+              {role ? role : "candidate or employer"}?
+            </span>
+          </p>
+        </div>
         <Stack
           direction="column"
           spacing={5}
@@ -40,7 +59,6 @@ const Login = ({ handleFormSubmit, register, errors }: LoginProps) => {
           justifyContent="center"
           alignItems="center"
         >
-          
           <form
             onSubmit={handleFormSubmit}
             className="flex flex-col gap-4 w-2/3 m-auto"
@@ -54,7 +72,6 @@ const Login = ({ handleFormSubmit, register, errors }: LoginProps) => {
               {...register("email")}
               error={!!errors.email}
               helperText={errors.email?.message}
-             
             />
             <TextField
               id="password-input"
@@ -65,7 +82,6 @@ const Login = ({ handleFormSubmit, register, errors }: LoginProps) => {
               error={!!errors.password}
               helperText={errors.password?.message}
               {...register("password")}
-              
             />
             <p className="text-xs text-center text-gray-500 flex flex-row justify-between">
               {" "}
@@ -79,7 +95,7 @@ const Login = ({ handleFormSubmit, register, errors }: LoginProps) => {
               </Link>
             </p>
             <Button variant="contained" color="secondary" type="submit">
-              Sign in
+              {isloading ? "loading..." : "Sign in"}
             </Button>
           </form>
         </Stack>

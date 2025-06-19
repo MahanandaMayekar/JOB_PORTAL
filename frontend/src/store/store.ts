@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { LoginApi } from "./login/LoginService";
 import { registerApi } from "./register/registerService"
-
+import { employerApi } from "./employer/employerService";
 import { jobApi } from "./jobs/jobService";
 import searchReducer from "./search/SearchSlice"
 export const store = configureStore({
@@ -9,14 +9,15 @@ export const store = configureStore({
     [LoginApi.reducerPath]: LoginApi.reducer,
     [registerApi.reducerPath]: registerApi.reducer,
     [jobApi.reducerPath]: jobApi.reducer,
-
-    search:searchReducer,
+    [employerApi.reducerPath]: employerApi.reducer,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(LoginApi.middleware)
       .concat(registerApi.middleware)
       .concat(jobApi.middleware)
+      .concat(employerApi.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

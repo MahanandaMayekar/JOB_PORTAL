@@ -9,14 +9,19 @@ export type LoginProps = {
 
     handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     register: UseFormRegister<LoginType>;
-errors: FieldErrors<LoginType>;
+    errors: FieldErrors<LoginType>;
+    isloading: boolean;
+    role: "employer" | "candidate" | undefined;
+    setRole: React.Dispatch<
+        React.SetStateAction<"employer" | "candidate" | undefined>
+    >;
 };
 export type LoginResponseType = {
     token: string,
     userEmail: string,
 
-    userId:string
-   
+    userId: string
+
 }
 
 

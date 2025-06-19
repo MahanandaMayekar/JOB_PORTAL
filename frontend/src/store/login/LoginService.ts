@@ -22,6 +22,17 @@ export const LoginApi = createApi({
                
             })
         }),
+        loginEmployer: builder.mutation<LoginResponseType, LoginType>({
+            query: (loginData) => ({
+                url: "login/employer",
+                method: "POST",
+                body: loginData,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+
+            })
+        }),
         RegisterUser: builder.mutation<UserType, RegisterType>({
             query: (registerData) => ({
                 url: "register",
@@ -41,4 +52,4 @@ export const LoginApi = createApi({
           
       })
     })
-    export const { useLoginMutation ,useRegisterUserMutation,useRegisterEmployerMutation} = LoginApi
+    export const { useLoginMutation ,useRegisterUserMutation,useRegisterEmployerMutation,useLoginEmployerMutation} = LoginApi

@@ -13,6 +13,7 @@ import ApplyJobPage from "../views/ApplyJob/ApplyJobPage";
 import ProfilePage from "../views/Profile/Profilepage"; 
 import SettingsPage from "../views/settings/SettingsPage";
 import UsersAppliedJobs from "../views/usersAppliedJobs/UsersAppliedJobs";
+import EmployerPanel from "../views/employerPanel/EmployerPanel";
 const Routers = () => {
   return (
     <div>
@@ -30,11 +31,9 @@ const Routers = () => {
           <Route path="/job/:id/applyJob" element={<ApplyJobPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/settings" element={<SettingsPage />} />
-          <Route
-            path="/users/applied-jobs"
-            element={<UsersAppliedJobs />}
-          />
+          <Route path="/users/applied-jobs" element={<UsersAppliedJobs />} />
         </Route>
+        <Route path="/panel" element={<EmployerPanel />} />
       </Routes>
     </div>
   );
