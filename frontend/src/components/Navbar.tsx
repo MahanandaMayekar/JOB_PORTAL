@@ -1,22 +1,15 @@
-
 import logo from "../assets/logo1.png";
 import GroupButton from "./GroupButton";
 import { motion } from "framer-motion";
-import SearchIcon from "@mui/icons-material/Search";
 import CustomMenu from "./CunstomMenu";
-import { IconButton } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 const Navbar = () => {
-  const navigate = useNavigate()
-  const location = useLocation();
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const handleClick = () => {
-    if (location.pathname !== "/dashboard") {
-      navigate("/dashboard");
-    }
-  };
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const userRole = user?.role;
 
   console.log("Token:", token);
   return (
@@ -52,13 +45,13 @@ const Navbar = () => {
           </motion.div>
         )}
 
-        {token && (
+        {token && userRole === "candidate" && (
           <div className="flex flex-1 w-full min-w-[200px] sm:min-w-[300px] max-w-[500px]">
             <SearchBar />
           </div>
         )}
 
-        {token && (
+        {token && userRole === "candidate" && (
           <div className="flex justify-end">
             <CustomMenu />
           </div>
