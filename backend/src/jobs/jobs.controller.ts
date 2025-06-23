@@ -38,12 +38,17 @@ export class JobsController {
     }
 
    
+    @Get('/employer-jobs')
+    async FindAllEmployersJobPosts(@Query('employerId') employerId: string) {
 
+
+        const jobs = await this.jobservice.FindAllEmployersJobPosts(employerId);
+        return jobs;
+    }
 
     @Get(":id")
     async getUserById(@Param("id") id: string) {
         return this.jobservice.FindJobById(id)
 
     }
-
 }

@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import type { JobsDocument } from './schrma/jobs.schema';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
+import { JobsModule } from './jobs.module';
 
 @Injectable()
 export class JobsService {
@@ -41,7 +42,14 @@ export class JobsService {
         const updatedJob = await this.jobModel.findByIdAndUpdate(id, UpdateJobData, { new: true })
         return updatedJob
     }
-
+    async FindAllEmployersJobPosts(EmployerId: string) {
+        if (!EmployerId) {
+            throw new NotFoundException("EmployerId not found")
+        }
+        const jobs = await this.jobModel.find({ employerId: EmployerId });
+        console.log("jobs", JobsModule)
+        return jobs
+    }
    
 
     async FindJobById(id: string) {
@@ -53,5 +61,7 @@ export class JobsService {
         return job
         
     }
+
+  
 
 }
