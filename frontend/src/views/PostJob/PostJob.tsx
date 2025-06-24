@@ -1,11 +1,11 @@
 import PostJobForm from "./PostJobForm";
-
+import Title from "../../components/Title";
 const PostJob = () => {
   return (
     <div className="p-6">
-    <h1 className="text-2xl font-bold mb-4">Post a New Job</h1>
-    <PostJobForm />
-  </div>
+      <Title text1="Post a New Job!" text2="Ready to jump back in?" />
+      <PostJobForm />
+    </div>
   );
 }
 

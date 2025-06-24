@@ -73,7 +73,7 @@ const PostJobForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-4xl mx-auto mt-10">
       <TextField
         fullWidth
         required
@@ -92,40 +92,45 @@ const PostJobForm = () => {
         value={formData.description}
         onChange={handleChange}
       />
-      <TextField
-        fullWidth
-        required
-        label="Company"
-        name="company"
-        value={formData.company}
-        onChange={handleChange}
-      />
-      <TextField
-        fullWidth
-        required
-        label="Location"
-        name="location"
-        value={formData.location}
-        onChange={handleChange}
-      />
-      <TextField
-        fullWidth
-        required
-        label="Salary From"
-        type="number"
-        name="salary_from"
-        value={formData.salary_from}
-        onChange={handleNumberChange}
-      />
-      <TextField
-        fullWidth
-        label="Salary To"
-        type="number"
-        name="salary_to"
-        required
-        value={formData.salary_to}
-        onChange={handleNumberChange}
-      />
+      <div className="flex  gap-4">
+        <TextField
+          fullWidth
+          required
+          label="Company"
+          name="company"
+          value={formData.company}
+          onChange={handleChange}
+        />
+        <TextField
+          fullWidth
+          required
+          label="Location"
+          name="location"
+          value={formData.location}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="flex  gap-4">
+        <TextField
+          fullWidth
+          required
+          label="Salary From"
+          type="number"
+          name="salary_from"
+          value={formData.salary_from}
+          onChange={handleNumberChange}
+        />
+        <TextField
+          fullWidth
+          label="Salary To"
+          type="number"
+          name="salary_to"
+          required
+          value={formData.salary_to}
+          onChange={handleNumberChange}
+        />
+      </div>
 
       <TextField
         select

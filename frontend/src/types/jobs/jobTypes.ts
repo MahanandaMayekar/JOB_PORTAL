@@ -13,7 +13,7 @@ export type JobType = {
     job_category: string;
     is_remote_work: boolean; // consider using boolean
     number_of_opening: number;
-
+    employerId: string;
     createdAt?: string;
 
     updatedAt?: string;

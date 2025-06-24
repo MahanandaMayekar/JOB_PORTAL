@@ -43,8 +43,14 @@ export const jobApi = createApi({
     fetchEmployersPosts: builder.query<JobType[],string>({
       query: (Id) => `/jobs/employer-jobs?employerId=${Id}`,
       providesTags: ["Jobs"],
+    }),
+    fetchEmployersApplications: builder.query<any, string>({
+      query: (Id) => `/applied-jobs?employerId=${Id}`,
+      providesTags: ["Jobs"],
+      
     })
   }),
+  
 });
 
 // Hooks
@@ -54,5 +60,6 @@ export const {
   useFetchJobByIdQuery,
   useApplyJobMutation, 
   useCreateJobMutation,
-  useFetchEmployersPostsQuery
+  useFetchEmployersPostsQuery,
+  useFetchEmployersApplicationsQuery
 } = jobApi;

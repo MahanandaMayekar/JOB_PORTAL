@@ -10,6 +10,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BsBagFill } from "react-icons/bs";
+import { HiClipboardDocument } from "react-icons/hi2";
 const EmployerSidebar = () => {
   const navigate = useNavigate();
 
@@ -58,42 +60,72 @@ const EmployerSidebar = () => {
           </Button>
         </NavLink>
       </div>
+      <div>
+        <NavLink
+          to="/employer/list-jobs"
+          className={({ isActive }) =>
+            isActive ? "text-yellow-400 font-semibold" : "text-white"
+          }
+        >
+          <Button
+            startIcon={<BsBagFill size={20} />}
+            variant="text"
+            className="!justify-start !items-center !text-white !hover:bg-blue-500 !w-full"
+          >
+            Manage Jobs
+          </Button>
+        </NavLink>
+      </div>
+      <div>
+        <NavLink
+          to="/employer/AllApplicants"
+          className={({ isActive }) =>
+            isActive ? "text-yellow-400 font-semibold" : "text-white"
+          }
+        >
+          <Button
+            startIcon={<HiClipboardDocument size={25} />}
+            variant="text"
+            className="!justify-start !text-white !hover:bg-blue-500 !w-full"
+          >
+            View Applicants
+          </Button>
+        </NavLink>
+      </div>
       <hr />
       <div className="">
-        
-          <Button
-            startIcon={<RiLogoutCircleLine size={20} />}
-            variant="text"
-            className="!justify-start !text-white !hover:bg-blue-800 !w-full"
-            onClick={() => setOpen(true)}
+        <Button
+          startIcon={<RiLogoutCircleLine size={20} />}
+          variant="text"
+          className="!justify-start !text-white !hover:bg-blue-800 !w-full"
+          onClick={() => setOpen(true)}
+        >
+          Logout
+        </Button>
+        <div>
+          <Dialog
+            open={open}
+            onClose={() => setOpen(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
           >
-            Logout
-          </Button>
-          <div>
-            <Dialog
-              open={open}
-              onClose={() => setOpen(false)}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Are you sure you want to logout?"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  You will be logged out of your account and redirected to the
-                  login page.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => setOpen(false)}>Cancel</Button>
-                <Button onClick={handleLogOut} autoFocus color="error">
-                  Logout
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </div>
-      
+            <DialogTitle id="alert-dialog-title">
+              {"Are you sure you want to logout?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                You will be logged out of your account and redirected to the
+                login page.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button onClick={handleLogOut} autoFocus color="error">
+                Logout
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
     </aside>
   );

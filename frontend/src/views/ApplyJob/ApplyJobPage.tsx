@@ -42,6 +42,8 @@ const ApplyJobPage = () => {
     formDataInput.append("contact", formdata?.contact || "");
     formDataInput.append("jobId", job?._id || "");
     formDataInput.append("userId", user?._id || "");
+    formDataInput.append("employerId", job?.employerId || "");
+
     if (coverLetterFile) {
       formDataInput.append("coverLetter", coverLetterFile);
     }

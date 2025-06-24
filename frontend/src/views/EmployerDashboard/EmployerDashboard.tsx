@@ -4,11 +4,14 @@ import { FaRegMessage } from "react-icons/fa6";
 import { IoDocumentsOutline } from "react-icons/io5";
 import Title from "../../components/Title";
 import { useFetchEmployersPostsQuery } from "../../store/jobs/jobService";
+import { useFetchEmployersApplicationsQuery } from "../../store/jobs/jobService";
 
 const EmployerDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const { data } = useFetchEmployersPostsQuery(user?._id);
+  const { data: applications } = useFetchEmployersApplicationsQuery(user?._id);
   const NoOfPost = data?.length;
+  const NoOfapplications=applications?.length
 
   const items = [
     {
@@ -19,7 +22,7 @@ const EmployerDashboard = () => {
     {
       icon: <IoDocumentsOutline size={32} />,
       title: "Applications",
-      value: 0, // update with actual data when ready
+      value: NoOfapplications||0, 
     },
     {
       icon: <FaRegMessage size={32} />,
