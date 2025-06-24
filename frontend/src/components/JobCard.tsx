@@ -9,7 +9,7 @@ import { saveJob } from "../utils/SaveJobs";
 const JobCard = ({ job }: JobCardProps) => {
   // Parse the qualifications string into an array
   const navigate = useNavigate();
- 
+ const user=JSON.parse(localStorage.getItem("user")||"{}")
   
 
   const [updateUser, { isSuccess }] = useUpdateUserMutation();
@@ -21,15 +21,17 @@ const JobCard = ({ job }: JobCardProps) => {
       {/* Image and Save Button */}
       <div className="w-full h-32 overflow-hidden rounded-md relative">
         <img src={logo} alt="Job Logo" className="w-full h-full object-cover" />
-        <IconButton
-          className={`!absolute top-1 right-2 z-40 !text-gray-600 hover:!text-blue-600 text-[1.8rem] hover:!bg-gray-300 ${
-            isSuccess ? "!bg-blue-400" : ""
-          }`}
-          size="large"
-          onClick={handleSaveJob}
-        >
-          <TurnedInNotIcon fontSize="inherit" />
-        </IconButton>
+        {user?.role === "candidate" && (
+          <IconButton
+            className={`!absolute top-1 right-2 z-40 !text-gray-600 hover:!text-blue-600 text-[1.8rem] hover:!bg-gray-300 ${
+              isSuccess ? "!bg-blue-400" : ""
+            }`}
+            size="large"
+            onClick={handleSaveJob}
+          >
+            <TurnedInNotIcon fontSize="inherit" />
+          </IconButton>
+        )}
       </div>
 
       {/* Job Info */}
@@ -37,7 +39,7 @@ const JobCard = ({ job }: JobCardProps) => {
         <h4 className="text-xl font-bold text-gray-800">{job.title}</h4>
         <p className="text-sm text-gray-600 font-semibold">{job.company}</p>
         <p className="text-xs text-gray-500">
-          Deadline: {job.application_deadline}
+          Deadline: {new Date(job.application_deadline).toLocaleDateString()}
         </p>
       </div>
 
@@ -74,15 +76,17 @@ const JobCard = ({ job }: JobCardProps) => {
         >
           {job.employment_type}
         </Button>
-        <Button
-          variant="outlined"
-          size="small"
-          endIcon={<ArrowForwardIcon />}
-          className="!text-xs !rounded-xl !p-2"
-          onClick={() => navigate(`/job/${job?._id}/applyJob`)}
-        >
-          Apply Now
-        </Button>
+        {user?.role === "candidate" && (
+          <Button
+            variant="outlined"
+            size="small"
+            endIcon={<ArrowForwardIcon />}
+            className="!text-xs !rounded-xl !p-2"
+            onClick={() => navigate(`/job/${job?._id}/applyJob`)}
+          >
+            Apply Now
+          </Button>
+        )}
       </div>
     </div>
   );
