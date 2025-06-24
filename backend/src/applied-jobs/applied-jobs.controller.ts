@@ -1,9 +1,9 @@
-import { Controller, UploadedFile } from '@nestjs/common';
+import { Controller, Query, UploadedFile } from '@nestjs/common';
 import { AppliedJobsService } from './applied-jobs.service';
 import { UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { Post, Body } from '@nestjs/common';
+import { Post, Body ,Get} from '@nestjs/common';
 import { AppliedJobsDto } from './dto/applied-job-dto';
 import { BadRequestException } from '@nestjs/common';
 
@@ -35,6 +35,13 @@ export class AppliedJobsController {
         const result = await this.appliedJobsService.CreateApplication({ ...body, coverLetterFile: fileUrl });
         console.log("files data",result);
         
+        return result
+    }
+
+
+    @Get()
+    async fetchEmployersApplications(@Query("employerId") employerId:string) {
+        const result = await this.appliedJobsService.fetchEmployersApplications(employerId)
         return result
     }
 
