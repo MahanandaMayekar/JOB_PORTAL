@@ -51,7 +51,7 @@ const Navbar = () => {
           </div>
         )}
 
-        {token && userRole === "candidate" && (
+        {token && (
           <div className="flex justify-end">
             <CustomMenu />
           </div>

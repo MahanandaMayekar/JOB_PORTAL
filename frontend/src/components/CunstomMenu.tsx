@@ -16,6 +16,10 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useNavigate } from "react-router-dom";
 const CustomMenu = () => {
+  
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const userRole = user?.role;
   const navigate = useNavigate();
   const [menuItem, setMenuItem] = useState("");
   const [open, setOpen] = useState<boolean>(false);
@@ -50,23 +54,55 @@ const CustomMenu = () => {
           borderRadius: "10rem",
         }}
       >
-        <MenuItem value="profile" onClick={() => navigate("/profile")}>
-          Profile
-        </MenuItem>
-        <MenuItem value="dashboard" onClick={() => navigate("/dashboard")}>
-          Dashboard
-        </MenuItem>
-        <MenuItem value="saved" onClick={() => navigate("/savedJobs")}>
-          Saved Posts
-        </MenuItem>
-        <MenuItem value="saved" onClick={() => navigate("/users/applied-jobs")}>
-          Applied Posts
-        </MenuItem>
-        <MenuItem value="saved" onClick={() => navigate("/settings")}>
-          Settings
-        </MenuItem>
+        {" "}
+        {token && userRole === "candidate" && (
+          <>
+            <MenuItem value="profile" onClick={() => navigate("/profile")}>
+              Profile
+            </MenuItem>
+            <MenuItem value="dashboard" onClick={() => navigate("/dashboard")}>
+              Dashboard
+            </MenuItem>
+            <MenuItem value="saved" onClick={() => navigate("/savedJobs")}>
+              Saved Posts
+            </MenuItem>
+            <MenuItem
+              value="saved"
+              onClick={() => navigate("/users/applied-jobs")}
+            >
+              Applied Posts
+            </MenuItem>
+            <MenuItem value="saved" onClick={() => navigate("/settings")}>
+              Settings
+            </MenuItem>
+          </>
+        )}
+        {token && userRole === "employer" && (
+          <>
+            <MenuItem
+              value="dashboard"
+              onClick={() => navigate("/employer/dashboard")}
+            >
+              Dashboard
+            </MenuItem>
+            <MenuItem
+              value="saved"
+              onClick={() => navigate("/employer/list-jobs")}
+            >
+              Post a Job
+            </MenuItem>
+            <MenuItem
+              value="saved"
+              onClick={() => navigate("/users/applied-jobs")}
+            >
+              Manage Job
+            </MenuItem>
+            <MenuItem value="saved" onClick={() => navigate("/employer/AllApplicants")}>
+              View All Applicants
+            </MenuItem>
+          </>
+        )}
         <hr />
-
         <div>
           <MenuItem value="logout" onClick={() => setOpen(true)}>
             Logout
