@@ -25,42 +25,42 @@ const EmployersApplication = () => {
                 <h2 className="text-xl font-bold black font-serif tracking-wide">
                   {app.userId.fullName?.toUpperCase()}
                 </h2>
-                <p className="text-sm text-gray-600">{app.userId.email}</p>
+                <p className="text-sm text-gray-600">{app?.userId?.email}</p>
               </div>
 
               <div className="text-sm space-y-1 mb-3">
                 <p>
-                  <span className="font-semibold">Job:</span> {app.jobId.title}
+                  <span className="font-semibold">Job:</span> {app?.jobId?.title}
                 </p>
                 <p>
                   <span className="font-semibold">Company:</span>{" "}
-                  {app.jobId.company}
+                  {app?.jobId?.company}
                 </p>
                 <p>
                   <span className="font-semibold">Location:</span>{" "}
-                  {app.jobId.location}
+                  {app?.jobId?.location}
                 </p>
                 <p>
                   <span className="font-semibold">Type:</span>{" "}
-                  {app.jobId.employment_type}
+                  {app?.jobId?.employment_type}
                 </p>
               </div>
 
               <div className="text-sm space-y-1 mb-4">
                 <p>
                   <span className="font-semibold">Applicant Email:</span>{" "}
-                  {app.email}
+                  {app?.email}
                 </p>
                 <p>
-                  <span className="font-semibold">Contact:</span> {app.contact}
+                  <span className="font-semibold">Contact:</span> {app?.contact}
                 </p>
                 <p>
-                  <span className="font-semibold">Address:</span> {app.address}
+                  <span className="font-semibold">Address:</span> {app?.address}
                 </p>
               </div>
               <div className="flex justify-between items-center mt-3 gap-3">
                 <a
-                  href={app.coverLetterFile}
+                  href={app?.coverLetterFile}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block"

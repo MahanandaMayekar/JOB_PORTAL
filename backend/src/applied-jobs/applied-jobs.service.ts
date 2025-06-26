@@ -21,6 +21,7 @@ export class AppliedJobsService {
 
         const result = await this.appliedJobsModel
             .find({ employerId })
+            .sort({createAt:-1})
             .populate('jobId') 
             .populate('userId', 'email fullName'); 
 

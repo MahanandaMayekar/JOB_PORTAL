@@ -56,7 +56,7 @@ const CustomMenu = () => {
       >
         {" "}
         {token && userRole === "candidate" && (
-          <>
+          <div>
             <MenuItem value="profile" onClick={() => navigate("/profile")}>
               Profile
             </MenuItem>
@@ -75,10 +75,10 @@ const CustomMenu = () => {
             <MenuItem value="saved" onClick={() => navigate("/settings")}>
               Settings
             </MenuItem>
-          </>
+          </div>
         )}
         {token && userRole === "employer" && (
-          <>
+          <div>
             <MenuItem
               value="dashboard"
               onClick={() => navigate("/employer/dashboard")}
@@ -103,7 +103,7 @@ const CustomMenu = () => {
             >
               View All Applicants
             </MenuItem>
-          </>
+          </div>
         )}
         <hr />
         <div>

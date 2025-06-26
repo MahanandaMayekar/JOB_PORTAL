@@ -17,6 +17,8 @@ import {
 import { useUpdateUserMutation } from "../../store/register/registerService";
 import { useNavigate } from "react-router-dom";
 const JobDetailsPage = () => {
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const role=user?.role
   const navigate=useNavigate()
   const { id } = useParams<string>()
   const { data: job, isLoading, isError } = useFetchJobByIdQuery(id!);
@@ -62,22 +64,24 @@ const postedDaysAgo = Math.floor(
             </div>
           </div>
         </div>
-        <div className="flex flex-row gap-6 my-auto">
-          <Button
-            variant="contained"
-            onClick={() => navigate(`/job/${job?._id}/applyJob`)}
-          >
-            Apply for job
-          </Button>
-          <Button
-            endIcon={<TurnedInNotIcon />}
-            variant="outlined"
-            onClick={handleSaveJob}
-          >
-            {" "}
-            Save post
-          </Button>
-        </div>
+        {role === "candidate" && (
+          <div className="flex flex-row gap-6 my-auto">
+            <Button
+              variant="contained"
+              onClick={() => navigate(`/job/${job?._id}/applyJob`)}
+            >
+              Apply for job
+            </Button>
+            <Button
+              endIcon={<TurnedInNotIcon />}
+              variant="outlined"
+              onClick={handleSaveJob}
+            >
+              {" "}
+              Save post
+            </Button>
+          </div>
+        )}
       </div>
       <div className="flex flex-row gap-8 ">
         <div className="flex-1 ml-10 space-y-6">
@@ -151,7 +155,7 @@ const postedDaysAgo = Math.floor(
 
           {/* Posted Date Info */}
           <p className="text-sm text-gray-600">
-            📅 Posted {postedDaysAgo===0?"Today":postedDaysAgo}days ago
+            📅 Posted {postedDaysAgo === 0 ? "Today" : postedDaysAgo}days ago
           </p>
         </div>
 

@@ -22,12 +22,13 @@ export class JobsService {
     async findAllJobs(category?: string) {
 
         if (category) {
-            const jobs = await this.jobModel.find({ category: category }).exec()
+            const jobs = await this.jobModel.find({ category: category }).sort({createdAt:-1}).exec()
             return jobs
             
         }
         else {
-            const jobs = await this.jobModel.find().exec()
+            const jobs = await this.jobModel.find().sort({ createAt: -1 }).exec()
+            console.log("resulting jobs",jobs)
             return jobs
             
         }
