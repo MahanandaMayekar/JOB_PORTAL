@@ -93,11 +93,14 @@ const CustomMenu = () => {
             </MenuItem>
             <MenuItem
               value="saved"
-              onClick={() => navigate("/users/applied-jobs")}
+              onClick={() => navigate("/employer/list-jobs")}
             >
               Manage Job
             </MenuItem>
-            <MenuItem value="saved" onClick={() => navigate("/employer/AllApplicants")}>
+            <MenuItem
+              value="saved"
+              onClick={() => navigate("/employer/AllApplicants")}
+            >
               View All Applicants
             </MenuItem>
           </>
