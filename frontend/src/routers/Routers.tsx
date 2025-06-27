@@ -18,6 +18,7 @@ import PostJob from "../views/PostJob/PostJob";
 import EmployerDashboard from "../views/EmployerDashboard/EmployerDashboard";
 import ManageJobsPage from "../views/manageJobs/ManageJobsPage";
 import EmployersApplication from "../views/EmployersApplications/EmployersApplication";
+import EmployersApplicationsForJob from "../views/EmployersApplications/EmployersApplicationsForJob";
 const Routers = () => {
   return (
     <div>
@@ -43,6 +44,10 @@ const Routers = () => {
             <Route path="post-job" element={<PostJob />} />
             <Route path="list-jobs" element={<ManageJobsPage />} />
             <Route path="AllApplicants" element={<EmployersApplication />} />
+            <Route
+              path="AllJobApplicants/:JobId"
+              element={<EmployersApplicationsForJob />}
+            />
           </Route>
         </Route>
       </Routes>

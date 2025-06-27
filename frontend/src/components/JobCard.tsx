@@ -6,6 +6,7 @@ import type { JobCardProps } from "../types/jobs/jobTypes";
 import { useNavigate } from "react-router-dom";
 import { useUpdateUserMutation } from "../store/register/registerService";
 import { saveJob } from "../utils/SaveJobs";
+import { useGetApplicationsForJobQuery } from "../store/jobs/jobService";
 const JobCard = ({ job }: JobCardProps) => {
   // Parse the qualifications string into an array
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const JobCard = ({ job }: JobCardProps) => {
   
 
   const [updateUser, { isSuccess }] = useUpdateUserMutation();
+  const{data:applications}=useGetApplicationsForJobQuery(job?._id!)
 
   const handleSaveJob = () => saveJob(job, updateUser);
 
@@ -85,6 +87,19 @@ const JobCard = ({ job }: JobCardProps) => {
             onClick={() => navigate(`/job/${job?._id}/applyJob`)}
           >
             Apply Now
+          </Button>
+        )}
+        {user?.role === "employer" && (
+          <Button
+            variant="outlined"
+            size="small"
+            endIcon={<ArrowForwardIcon />}
+            className="!text-xs !rounded-xl !p-2"
+            onClick={() => navigate(`/employer/AllJobApplicants/${job?._id}`)}
+          >
+            {applications?.length > 0
+              ? `${applications.length} applications received`
+              : "No applications yet"}
           </Button>
         )}
       </div>

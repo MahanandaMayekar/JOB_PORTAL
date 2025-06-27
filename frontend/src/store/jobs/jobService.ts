@@ -48,6 +48,11 @@ export const jobApi = createApi({
       query: (Id) => `/applied-jobs?employerId=${Id}`,
       providesTags: ["Jobs"],
       
+    }),
+    getApplicationsForJob: builder.query<any,string>({
+      query: (jobId) => `/applied-jobs/${jobId}`,
+      providesTags: ["Jobs"],
+
     })
   }),
   
@@ -61,5 +66,6 @@ export const {
   useApplyJobMutation, 
   useCreateJobMutation,
   useFetchEmployersPostsQuery,
-  useFetchEmployersApplicationsQuery
+  useFetchEmployersApplicationsQuery,
+  useGetApplicationsForJobQuery
 } = jobApi;
