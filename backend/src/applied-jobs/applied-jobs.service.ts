@@ -8,11 +8,11 @@ import { NotFoundException } from '@nestjs/common';
 @Injectable()
 export class AppliedJobsService {
     constructor(@InjectModel(AppliedJobs.name) private appliedJobsModel: Model<AppliedJobDocument>) { }
-    
+
     async CreateApplication(applicationData: AppliedJobsDto) {
         const result = await this.appliedJobsModel.create(applicationData)
         return result
-        
+
     }
     async fetchEmployersApplications(employerId: string) {
         if (!employerId) {
@@ -21,13 +21,24 @@ export class AppliedJobsService {
 
         const result = await this.appliedJobsModel
             .find({ employerId })
-            .sort({createAt:-1})
-            .populate('jobId') 
-            .populate('userId', 'email fullName'); 
+            .sort({ createAt: -1 })
+            .populate('jobId')
+            .populate('userId', 'email fullName');
 
         console.log("employer's all applications", result);
 
         return result;
-      }
+    }
+    async getApplicationsForJob(jobId: string) {
+        if (!jobId) {
+            throw new NotFoundException("jobId not found");
+        }
+        const result = await this.appliedJobsModel.find({ jobId })
+            .populate('userId','fullName ') // populate user name & email
+            .populate('jobId')       // optional: job title
+            .exec();
+        return result
+
+    }
 
 }

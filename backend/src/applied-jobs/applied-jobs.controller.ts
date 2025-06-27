@@ -1,4 +1,4 @@
-import { Controller, Query, UploadedFile } from '@nestjs/common';
+import { Controller, Query, UploadedFile ,Param} from '@nestjs/common';
 import { AppliedJobsService } from './applied-jobs.service';
 import { UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -42,6 +42,11 @@ export class AppliedJobsController {
     @Get()
     async fetchEmployersApplications(@Query("employerId") employerId:string) {
         const result = await this.appliedJobsService.fetchEmployersApplications(employerId)
+        return result
+    }
+    @Get(":jobId")
+    async getApplicationsForJob(@Param("jobId") jobId:string) {
+        const result = await this.appliedJobsService.getApplicationsForJob(jobId)
         return result
     }
 
