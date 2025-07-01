@@ -53,7 +53,22 @@ export const jobApi = createApi({
       query: (jobId) => `/applied-jobs/${jobId}`,
       providesTags: ["Jobs"],
 
-    })
+    }),
+    updateApplicationStatus: builder.mutation<any, { id: string; status: string }>({
+      query: ({ id, status }) => ({
+        url: `/applied-jobs/${id}/status`,
+        method: "PATCH",
+        body: { status },
+      }),
+      invalidatesTags: ["Jobs"],
+    }),
+    getUserApplications: builder.query<any, string>({
+      query: (userId) => ({
+        url: `/applied-jobs/user/${userId}`,
+        method: "GET",
+      }),
+      providesTags: ["Jobs"],
+    }),
   }),
   
 });
@@ -67,5 +82,7 @@ export const {
   useCreateJobMutation,
   useFetchEmployersPostsQuery,
   useFetchEmployersApplicationsQuery,
-  useGetApplicationsForJobQuery
+  useGetApplicationsForJobQuery,
+  useUpdateApplicationStatusMutation,
+  useGetUserApplicationsQuery
 } = jobApi;

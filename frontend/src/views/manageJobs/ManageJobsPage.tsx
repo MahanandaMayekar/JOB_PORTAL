@@ -14,7 +14,7 @@ const ManageJobsPage = () => {
 
       <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {jobs.length > 0 ? (
-          jobs.map((job: any) => <JobCard job={job} />)
+          jobs.map((job: any) => <JobCard key={job?._id} job={job} />)
         ) : (
           <div className="flex justify-center  ">
             <p className="text-gray-500 text-2xl font-serif">

@@ -22,7 +22,8 @@ export type JobType = {
 
 
 export type JobCardProps = {
-    job: JobType
+    job: JobType;
+    status?:string
 }
 
 

@@ -2,7 +2,11 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 import { Types } from "mongoose";
 export type AppliedJobDocument = AppliedJobs & Document
-
+export enum ApplicationStatus {
+    PENDING = 'pending',
+    APPROVED = 'approved',
+    REJECTED = 'rejected',
+}
 
 @Schema()
 export class AppliedJobs{
@@ -27,6 +31,9 @@ export class AppliedJobs{
 
     @Prop({ required: true })
     coverLetterFile: string;
+    
+    @Prop({ type: String, enum: ApplicationStatus ,default:ApplicationStatus.PENDING})
+        status: ApplicationStatus
 
 
 }

@@ -7,14 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateUserMutation } from "../store/register/registerService";
 import { saveJob } from "../utils/SaveJobs";
 import { useGetApplicationsForJobQuery } from "../store/jobs/jobService";
-const JobCard = ({ job }: JobCardProps) => {
+import { useLocation } from "react-router-dom";
+const JobCard = ({ job,status }: JobCardProps) => {
   // Parse the qualifications string into an array
   const navigate = useNavigate();
- const user=JSON.parse(localStorage.getItem("user")||"{}")
-  
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  const location = useLocation();
+  const isAppliedJobsPage = location.pathname === "/users/applied-jobs";
 
   const [updateUser, { isSuccess }] = useUpdateUserMutation();
-  const{data:applications}=useGetApplicationsForJobQuery(job?._id!)
+  const { data: applications } = useGetApplicationsForJobQuery(job?._id!);
 
   const handleSaveJob = () => saveJob(job, updateUser);
 
@@ -23,7 +26,7 @@ const JobCard = ({ job }: JobCardProps) => {
       {/* Image and Save Button */}
       <div className="w-full h-32 overflow-hidden rounded-md relative">
         <img src={logo} alt="Job Logo" className="w-full h-full object-cover" />
-        {user?.role === "candidate" && (
+        {user?.role === "candidate" && !isAppliedJobsPage && (
           <IconButton
             className={`!absolute top-1 right-2 z-40 !text-gray-600 hover:!text-blue-600 text-[1.8rem] hover:!bg-gray-300 ${
               isSuccess ? "!bg-blue-400" : ""
@@ -70,7 +73,7 @@ const JobCard = ({ job }: JobCardProps) => {
       </div>
 
       {/* Actions */}
-      <div className="flex justify-between items-center mt-auto">
+      <div className="flex justify-around items-center mt-auto">
         <Button
           variant="contained"
           size="small"
@@ -78,7 +81,7 @@ const JobCard = ({ job }: JobCardProps) => {
         >
           {job.employment_type}
         </Button>
-        {user?.role === "candidate" && (
+        {user?.role === "candidate" && !isAppliedJobsPage && (
           <Button
             variant="outlined"
             size="small"
@@ -103,6 +106,21 @@ const JobCard = ({ job }: JobCardProps) => {
           </Button>
         )}
       </div>
+      {user?.role === "candidate" && isAppliedJobsPage && status && (
+        <Button
+          variant="contained"
+          color={
+            status === "approved"
+              ? "success"
+              : status === "rejected"
+              ? "error"
+              : "secondary" // use 'secondary' or 'info' for pending
+          }
+          size="large"
+        >
+          your application is {status}
+        </Button>
+      )}
     </div>
   );
 };

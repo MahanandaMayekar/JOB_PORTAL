@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AppliedJobs } from './schema/applied-job.schema';
+import { ApplicationStatus, AppliedJobs } from './schema/applied-job.schema';
 import { Model } from 'mongoose';
 import { AppliedJobDocument } from './schema/applied-job.schema';
 import { AppliedJobsDto } from './dto/applied-job-dto';
@@ -40,5 +40,28 @@ export class AppliedJobsService {
         return result
 
     }
+
+    async updateStatus(id: string, newStatus: ApplicationStatus) {
+        if (!id) {
+            throw new NotFoundException("id not found");
+        }  
+        const results = await this.appliedJobsModel.findByIdAndUpdate(id, { status: newStatus }, { new: true }).exec()
+        
+        return results
+    }
+
+    async fetchUsersApplications(userId: string) {
+        if (!userId) {
+            throw new NotFoundException('User ID is required');
+        }
+
+        const applications = await this.appliedJobsModel
+            .find({ userId })
+            .populate('jobId');
+
+        return applications;
+      }
+
+    
 
 }
