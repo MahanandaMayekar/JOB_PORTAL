@@ -6,7 +6,7 @@ export const jobApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/",
   }),
-  tagTypes:["Jobs"],
+  tagTypes: ["Jobs", "applied-jobs"],
   endpoints: (builder) => ({
     // Fetch all jobs
     fetchJobs: builder.query<JobType[], void>({
@@ -31,7 +31,7 @@ export const jobApi = createApi({
         method: "POST",
         body: formData,
       }),
-      invalidatesTags: ["Jobs"],
+      invalidatesTags: ["applied-jobs"],
     }),
     CreateJob: builder.mutation<JobType, CreateJobType>({
       query: (data) => ({
@@ -46,7 +46,7 @@ export const jobApi = createApi({
     }),
     fetchEmployersApplications: builder.query<any, string>({
       query: (Id) => `/applied-jobs?employerId=${Id}`,
-      providesTags: ["Jobs"],
+      providesTags: ["applied-jobs"],
       
     }),
     getApplicationsForJob: builder.query<any,string>({
@@ -60,14 +60,14 @@ export const jobApi = createApi({
         method: "PATCH",
         body: { status },
       }),
-      invalidatesTags: ["Jobs"],
+      invalidatesTags: ["applied-jobs"],
     }),
     getUserApplications: builder.query<any, string>({
       query: (userId) => ({
         url: `/applied-jobs/user/${userId}`,
         method: "GET",
       }),
-      providesTags: ["Jobs"],
+      providesTags: ["applied-jobs"],
     }),
   }),
   
