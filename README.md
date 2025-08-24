@@ -55,7 +55,7 @@ A full-featured Job Portal where users can register, login, search for jobs, sav
   - Material UI  
   - React Query  
 
-- **Backend (if implemented):**  
+- **Backend :**  
   -  Nest.js  
   - MongoDB  
 
