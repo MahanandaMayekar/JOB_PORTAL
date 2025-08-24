@@ -4,6 +4,7 @@ import Category from "../categoryPage/Category";
 
 import { useState } from "react";
 const Dashboard = () => {
+  
   const [category, setCategory] = useState<boolean>(false);
 
   return (

@@ -53,7 +53,7 @@ const SavedJobPage = () => {
             <div key={job._id} className="relative">
               <IconButton
                 className=" z-10  absolute top-36 left-[74%] text-red-500 hover:text-red-700 !rounded-full  "
-                onClick={() => handleDeleteJob(job._id)}
+                onClick={() => handleDeleteJob(job._id!)}
               >
                 <DeleteIcon />
               </IconButton>

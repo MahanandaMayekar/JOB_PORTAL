@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 export const saveJob = async (
     job: JobType,
-    updateUser: any // Use proper type if available
+    updateUser: any 
 ) => {
     const storedUser = JSON.parse(localStorage.getItem("user") || "null");
     if (!storedUser) return;

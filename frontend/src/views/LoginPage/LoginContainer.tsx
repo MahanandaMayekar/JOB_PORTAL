@@ -40,8 +40,7 @@ const LoginContainer = () => {
       let response;
       if (role === "candidate") {
          response = await login(formData).unwrap();
-       
-        const user = await triggerGetUser(response?.userEmail).unwrap();
+              const user = await triggerGetUser(response?.userEmail).unwrap();
 
         console.log("form submitted", user);
         localStorage.setItem("user", JSON.stringify(user));
